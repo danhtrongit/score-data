@@ -25,9 +25,11 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy application code
 COPY . .
 
-# Create a non-root user to run the app
+# Create a non-root user and data directory
 RUN useradd -m -u 1000 appuser && \
-    chown -R appuser:appuser /app
+    mkdir -p /app/data && \
+    chown -R appuser:appuser /app && \
+    chmod 755 /app/data
 
 # Switch to non-root user
 USER appuser
